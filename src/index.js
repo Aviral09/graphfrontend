@@ -658,6 +658,58 @@ class Graph extends Component {
 						//renderNode={this.renderNode}
 					/>
 				</div>
+				<br></br>
+				<p style={{ color: "white", textAlign: "left", fontSize: "0.85rem" }}>
+					How to use -<br></br>
+					1. Click on the button or drag the box to insert a node.<br></br><br></br>
+					2. Use the controls in the graphview at the bottom left to zoom in the graph or fit it to screen.<br></br> <br></br>
+					3. More nodes and node types can the added.<br></br><br></br>
+					4. Typical nature of a graph is as follows (Example shown by default above) -<br></br><br></br>
+					<code>{`EdgeTypes: {
+						emptyEdge: {
+						shape: EmptyEdgeShape,
+						shapeId: "#emptyEdge",
+						typeText: "Empty"
+						},
+						specialEdge: {
+						shape: SpecialEdgeShape,
+						shapeId: "#specialEdge"
+						}
+					},
+					NodeSubtypes: {
+						specialChild: {
+						shape: SpecialChildShape,
+						shapeId: "#specialChild"
+						}
+					},
+					NodeTypes: {
+						empty: {
+						shape: EmptyNodeShape,
+						shapeId: "#empty",
+						typeText: "None"
+						},
+						customEmpty: {
+						shape: CustomEmptyShape,
+						shapeId: "#customEmpty",
+						typeText: "None"
+						},
+						special: {
+						shape: SpecialShape,
+						shapeId: "#special",
+						typeText: "Special"
+						},
+						skinny: {
+						shape: SkinnyShape,
+						shapeId: "#skinny",
+						typeText: "Skinny"
+						},
+						poly: {
+						shape: PolyShape,
+						shapeId: "#poly",
+						typeText: "Poly"
+						}
+					}`}</code>
+				</p>
 			</div>
 		);
 	}
