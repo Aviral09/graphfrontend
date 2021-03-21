@@ -14,6 +14,7 @@ import {
 	SPECIAL_EDGE_TYPE,
 	SPECIAL_TYPE,
 	SKINNY_TYPE,
+	EMPTY_TYPE,
 } from "./App";
 
 import "./index.css";
@@ -219,9 +220,44 @@ class Graph extends Component {
 		return this.state.graph.nodes[i];
 	}
 
-	addStartNode = (e) => {
+	addStartNodeEmpty = (e) => {
 		const graph = this.state.graph;
-
+		// using a new array like this creates a new memory reference
+		// this will force a re-render
+		graph.nodes = [
+			{
+				id: Date.now(),
+				title: "Node A",
+				type: EMPTY_TYPE,
+				x: e ? e.screenX : 0, //Figure out the correct coordinates to drop
+				y: e ? e.screenY : 0,
+			},
+			...this.state.graph.nodes,
+		];
+		this.setState({
+			graph,
+		});
+	};
+	addStartNodeCustomEmpty = (e) => {
+		const graph = this.state.graph;
+		// using a new array like this creates a new memory reference
+		// this will force a re-render
+		graph.nodes = [
+			{
+				id: Date.now(),
+				title: "Node A",
+				type: CUSTOM_EMPTY_TYPE,
+				x: e ? e.screenX : 0, //Figure out the correct coordinates to drop
+				y: e ? e.screenY : 0,
+			},
+			...this.state.graph.nodes,
+		];
+		this.setState({
+			graph,
+		});
+	};
+	addStartNodeSpecial = (e) => {
+		const graph = this.state.graph;
 		// using a new array like this creates a new memory reference
 		// this will force a re-render
 		graph.nodes = [
@@ -238,7 +274,97 @@ class Graph extends Component {
 			graph,
 		});
 	};
+	addStartNodePoly = (e) => {
+		const graph = this.state.graph;
+		// using a new array like this creates a new memory reference
+		// this will force a re-render
+		graph.nodes = [
+			{
+				id: Date.now(),
+				title: "Node A",
+				type: POLY_TYPE,
+				x: e ? e.screenX : 0, //Figure out the correct coordinates to drop
+				y: e ? e.screenY : 0,
+			},
+			...this.state.graph.nodes,
+		];
+		this.setState({
+			graph,
+		});
+	};
+	addStartNodeSkinny = (e) => {
+		const graph = this.state.graph;
+		// using a new array like this creates a new memory reference
+		// this will force a re-render
+		graph.nodes = [
+			{
+				id: Date.now(),
+				title: "Node A",
+				type: SKINNY_TYPE,
+				x: e ? e.screenX : 0, //Figure out the correct coordinates to drop
+				y: e ? e.screenY : 0,
+			},
+			...this.state.graph.nodes,
+		];
+		this.setState({
+			graph,
+		});
+	};
+	addStartNodeSpecialChild = (e) => {
+		const graph = this.state.graph;
+		// using a new array like this creates a new memory reference
+		// this will force a re-render
+		graph.nodes = [
+			{
+				id: Date.now(),
+				title: "Node A",
+				type: SPECIAL_CHILD_SUBTYPE,
+				x: e ? e.screenX : 0, //Figure out the correct coordinates to drop
+				y: e ? e.screenY : 0,
+			},
+			...this.state.graph.nodes,
+		];
+		this.setState({
+			graph,
+		});
+	};
+	addStartNodeEmptyEdge = (e) => {
+		const graph = this.state.graph;
+		// using a new array like this creates a new memory reference
+		// this will force a re-render
+		graph.nodes = [
+			{
+				id: Date.now(),
+				title: "Node A",
+				type: EMPTY_EDGE_TYPE,
+				x: e ? e.screenX : 0, //Figure out the correct coordinates to drop
+				y: e ? e.screenY : 0,
+			},
+			...this.state.graph.nodes,
+		];
+		this.setState({
+			graph,
+		});
+	};
 
+	addStartNodeSpecialEdge = (e) => {
+		const graph = this.state.graph;
+		// using a new array like this creates a new memory reference
+		// this will force a re-render
+		graph.nodes = [
+			{
+				id: Date.now(),
+				title: "Node A",
+				type: SPECIAL_EDGE_TYPE,
+				x: e ? e.screenX : 0, //Figure out the correct coordinates to drop
+				y: e ? e.screenY : 0,
+			},
+			...this.state.graph.nodes,
+		];
+		this.setState({
+			graph,
+		});
+	};
 	deleteStartNode = () => {
 		const graph = this.state.graph;
 
@@ -441,43 +567,96 @@ class Graph extends Component {
 		const selected = this.state.selected;
 
 		return (
-			<div id='graph' style={{ height: "50rem" }}>
-				<div className='App'>
-					<header className='App-header'>
-						<p>
-							This is a demo for GSoC Project for frontend of graphs made using
-							loopsim.
-						</p>
-
-						<button onClick={this.addStartNode}>Create Node</button>
-						<div draggable onDragEnd={(e) => this.addStartNode(e)}>
-							create on drag
+			<div className='App'>
+				<header className='App-header'>
+					<p>
+						This is a demo for GSoC Project for frontend of graphs made using
+						loopsim.
+					</p>
+				</header>
+				<div className='buttons'>
+					<div>
+						<button onClick={this.addStartNodeEmpty}>
+							Click to create Empty Node
+						</button>
+						<div draggable onDragEnd={(e) => this.addStartNodeEmpty(e)}>
+							Drag to create Empty Node
 						</div>
-						<GraphView
-							showGraphControls={true}
-							gridSize='100rem'
-							gridDotSize={1}
-							renderNodeText={false}
-							ref='GraphView'
-							nodeKey={NODE_KEY}
-							nodes={nodes}
-							edges={edges}
-							selected={selected}
-							nodeTypes={nodeConfig.NodeTypes}
-							nodeSubtypes={nodeConfig.NodeSubtypes}
-							edgeTypes={nodeConfig.NodeTypes}
-							onSelectNode={this.onSelectNode}
-							onCreateNode={this.onCreateNode}
-							onUpdateNode={this.onUpdateNode}
-							onDeleteNode={this.onDeleteNode}
-							onSelectEdge={this.onSelectEdge}
-							onCreateEdge={this.onCreateEdge}
-							onSwapEdge={this.onSwapEdge}
-							onDeleteEdge={this.onDeleteEdge}
-							readOnly={false}
-							//renderNode={this.renderNode}
-						/>
-					</header>
+						<button onClick={this.addStartNodeCustomEmpty}>
+							Click to create Custom Empty Node
+						</button>
+						<div draggable onDragEnd={(e) => this.addStartNodeCustomEmpty(e)}>
+							Drag to create Custom Empty Node
+						</div>
+					</div>
+					<div>
+						<button onClick={this.addStartNodeSpecial}>
+							Click to create Special Node
+						</button>
+						<div draggable onDragEnd={(e) => this.addStartNodeSpecial(e)}>
+							Drag to create Special Node
+						</div>
+						<button onClick={this.addStartNodePoly}>
+							Click to create Poly Node
+						</button>
+						<div draggable onDragEnd={(e) => this.addStartNodePoly(e)}>
+							Drag to create Poly Node
+						</div>
+					</div>
+					<div>
+						<button onClick={this.addStartNodeSkinny}>
+							Click to create Skinny Node
+						</button>
+						<div draggable onDragEnd={(e) => this.addStartNodeSkinny(e)}>
+							Drag to create Skinny Node
+						</div>
+						<button onClick={this.addStartNodeSpecialChild}>
+							Click to create Special Child Node
+						</button>
+						<div draggable onDragEnd={(e) => this.addStartNodeSpecialChild(e)}>
+							Drag to create Special Child Node
+						</div>
+					</div>
+					<div>
+						<button onClick={this.addStartNodeSpecialEdge}>
+							Click to create Special Edge Node
+						</button>
+						<div draggable onDragEnd={(e) => this.addStartNodeSpecialEdge(e)}>
+							Drag to create Special Edge Node
+						</div>
+						<button onClick={this.addStartNodeEmptyEdge}>
+							Click to create Empty Edge Node
+						</button>
+						<div draggable onDragEnd={(e) => this.addStartNodeEmptyEdge(e)}>
+							Drag to create Empty Edge Node
+						</div>
+					</div>
+				</div>
+				<div id='graph' style={{ height: "65vh" }}>
+					<GraphView
+						showGraphControls={true}
+						gridSize='100rem'
+						gridDotSize={1}
+						renderNodeText={false}
+						ref='GraphView'
+						nodeKey={NODE_KEY}
+						nodes={nodes}
+						edges={edges}
+						selected={selected}
+						nodeTypes={nodeConfig.NodeTypes}
+						nodeSubtypes={nodeConfig.NodeSubtypes}
+						edgeTypes={nodeConfig.NodeTypes}
+						onSelectNode={this.onSelectNode}
+						onCreateNode={this.onCreateNode}
+						onUpdateNode={this.onUpdateNode}
+						onDeleteNode={this.onDeleteNode}
+						onSelectEdge={this.onSelectEdge}
+						onCreateEdge={this.onCreateEdge}
+						onSwapEdge={this.onSwapEdge}
+						onDeleteEdge={this.onDeleteEdge}
+						readOnly={false}
+						//renderNode={this.renderNode}
+					/>
 				</div>
 			</div>
 		);
