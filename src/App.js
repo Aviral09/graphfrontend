@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 // @flow
 /*
   Copyright(c) 2018 Uber Technologies, Inc.
